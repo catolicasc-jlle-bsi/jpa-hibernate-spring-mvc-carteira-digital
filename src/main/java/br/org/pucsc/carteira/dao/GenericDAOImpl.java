@@ -6,33 +6,49 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
-import br.org.pucsc.carteira.config.EntityManagerSession;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class GenericDAOImpl<T, I extends Serializable> implements GenericDAO<T, I> {
+	
+	@Autowired
+	protected SessionFactory sessionFactory;
 	
 	@Override
 	public T save(T entity) {
 
-		getEntityManager().getTransaction().begin();
-		entity = getEntityManager().merge(entity);
-		getEntityManager().getTransaction().commit();
+		try {
+			sessionFactory.getCurrentSession().getTransaction().begin();
+
+			entity = (T) sessionFactory.getCurrentSession().save(entity);
+			
+			sessionFactory.getCurrentSession().getTransaction().commit();
+		} catch (Exception e) {
+			sessionFactory.getCurrentSession().getTransaction().rollback();
+		}
 
 		return entity;
 	}
 
 	@Override
 	public void remove(T entity) {
-		getEntityManager().getTransaction().begin();
-		getEntityManager().remove(entity);
-		getEntityManager().getTransaction().commit();
 
+		try {
+			sessionFactory.getCurrentSession().getTransaction().begin();
+
+			sessionFactory.getCurrentSession().delete(entity);
+			
+			sessionFactory.getCurrentSession().getTransaction().commit();
+		} catch (Exception e) {
+			sessionFactory.getCurrentSession().getTransaction().rollback();
+		}
 	}
 
 	@Override
 	public T getById(Class<T> classe, I pk) {
 
 		try {
-			return getEntityManager().find(classe, pk);
+			return (T) sessionFactory.getCurrentSession().createQuery("select o from " + classe.getSimpleName().toString() + " o where o.id = "+pk.toString()).uniqueResult();
 		} catch (NoResultException e) {
 			return null;
 		}
@@ -42,12 +58,7 @@ public class GenericDAOImpl<T, I extends Serializable> implements GenericDAO<T, 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> getAll(Class<T> classe) {
-		return getEntityManager().createQuery("select o from " + classe.getSimpleName() + " o").getResultList();
+		return sessionFactory.getCurrentSession().createQuery("select o from " + classe.getSimpleName() + " o").list();
 	}
 	
-	@Override
-	public EntityManager getEntityManager() {
-		return EntityManagerSession.getInstance().getManager();
-	}
-
 }

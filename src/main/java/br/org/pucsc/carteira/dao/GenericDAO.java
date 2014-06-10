@@ -14,6 +14,4 @@ public interface GenericDAO<T, I extends Serializable> {
 	public T getById(Class<T> classe, I pk);
 
 	public List<T> getAll(Class<T> classe);
-
-	public EntityManager getEntityManager();
 }
