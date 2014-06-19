@@ -25,7 +25,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li><a href="${pageContext.request.contextPath}/card/">Cartões</a></li>
-            <li><a href="${pageContext.request.contextPath}/identity/">Identidade</a></li>
+            <li><a href="${pageContext.request.contextPath}/bank/">Bancos</a></li>
           </ul>
         </div>
         

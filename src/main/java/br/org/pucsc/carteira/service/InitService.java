@@ -4,8 +4,8 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import br.org.pucsc.carteira.dao.RoleDAO;
 import br.org.pucsc.carteira.dao.RoleDAOImpl;
 import br.org.pucsc.carteira.entity.Role;
 
@@ -13,27 +13,28 @@ import br.org.pucsc.carteira.entity.Role;
 public class InitService {
 	
 	@Autowired
-	RoleService roleService;
-	
+	RoleDAOImpl roleDAO;
+		
+	@Transactional
 	@PostConstruct
 	private void init() {
 				
-		Role roleUser = roleService.getById(1L);
+		Role roleUser = roleDAO.getById(Role.class, 1L);
 		if (roleUser == null) {
 			roleUser = new Role();
 			roleUser.setId(1L);
 			roleUser.setRoleName(Role.ROLE_USER);
 			
-			roleService.save(roleUser);
+			roleDAO.save(roleUser);
 		}
 		
-		Role roleManager = roleService.getById(2L);
+		Role roleManager = roleDAO.getById(Role.class, 2L);
 		if (roleManager == null) {
 			roleManager = new Role();
 			roleManager.setId(2L);
 			roleManager.setRoleName(Role.ROLE_MANAGER);
 			
-			roleService.save(roleManager);
+			roleDAO.save(roleManager);
 		}
 	}
 }

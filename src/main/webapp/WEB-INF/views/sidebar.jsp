@@ -24,8 +24,9 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="${pageContext.request.contextPath}/card/">Cartões</a></li>
-            <li><a href="${pageContext.request.contextPath}/identity/">Identidade</a></li>
+            <li><a href="${pageContext.request.contextPath}/card/">Cadastro de Cartões</a></li>
+            <li><a href="${pageContext.request.contextPath}/bank/">Cadastro de Bancos</a></li>
+            <li><a href="${pageContext.request.contextPath}/flag/">Cadastro de Bandeira de Cartão</a></li>
           </ul>
         </div>
         

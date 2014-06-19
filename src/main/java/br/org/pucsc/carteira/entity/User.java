@@ -35,21 +35,10 @@ public class User implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
-	@Column(nullable=false)
-	private Long idRole;
-
 	@ManyToOne
-	@JoinColumn(name="idRole",insertable=false,updatable=false)
+	@JoinColumn(name="idRole", referencedColumnName="id", insertable=false,updatable=false)
 	private Role role;
-		
-	public Long getIdRole() {
-		return idRole;
-	}
-
-	public void setIdRole(Long idRole) {
-		this.idRole = idRole;
-	}
-
+	
 	public Role getRole() {
 		return role;
 	}

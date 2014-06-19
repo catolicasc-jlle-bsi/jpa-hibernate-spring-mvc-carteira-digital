@@ -12,7 +12,7 @@ public class UserDAOImpl extends GenericDAOImpl<User, Long> implements UserDAO {
 
 	@Override
 	public User getUserByEmail(String email) {
-		Query query = sessionFactory.getCurrentSession().createQuery("SELECT o FROM User o WHERE o.email = :email");
+		Query query = getSession().createQuery("SELECT o FROM User o WHERE o.email = :email");
 		query.setParameter("email", email);
 		return query.uniqueResult() != null ? (User) query.uniqueResult() : null;
 	}

@@ -22,6 +22,8 @@
 			<tr>
 				<th>#ID</th>
 				<th>Nome</th>
+				<th>Bandeira</th>
+				<th>Banco</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -30,6 +32,8 @@
 				<tr>
 					<td>${card.id}</td>
 					<td>${card.name}</td>
+					<td>${card.flag.description}</td>
+					<td>${card.bank.description}</td>
 					<td><a class="btn btn-danger btn-sm"
 						href="${pageContext.request.contextPath}/card/read?id=${card.id}">Editar</a></td>
 				</tr>

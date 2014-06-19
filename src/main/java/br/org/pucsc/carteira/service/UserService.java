@@ -4,21 +4,24 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import br.org.pucsc.carteira.dao.UserDAO;
+import br.org.pucsc.carteira.dao.UserDAOImpl;
 import br.org.pucsc.carteira.entity.User;
 
 @Service
 public class UserService {
 
 	@Autowired
-	UserDAO userDAO;
+	UserDAOImpl userDAO;
 	
+	@Transactional
 	public User save(User entity) {
 		userDAO.save(entity);
 		return entity;
 	}
 
+	@Transactional
 	public void remove(User entity) {
 		userDAO.remove(entity);
 	}
