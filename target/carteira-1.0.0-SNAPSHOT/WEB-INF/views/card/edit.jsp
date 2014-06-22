@@ -26,6 +26,30 @@
 								id="name" name="name" placeholder="Exemplo: VISA Crédito"  value="${card.name}" size="255" required>
 						</div>
 					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<label for="bank">Banco</label>
+							<select id="idBank" name="idBank" required class="form-control">
+						        <c:forEach var="bank" items="${banks}">
+						            <option value="${bank.id}" ${bank.id == card.bank.id ? 'selected="selected"' : ''}>${bank.description}</option>
+						        </c:forEach>
+						    </select>
+				        </div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<label for="flag">Bandeira do Cartão</label>
+							<select id="idFlag" name="idFlag" required class="form-control">
+						        <c:forEach var="flag" items="${flags}">
+						            <option value="${flag.id}" ${flag.id == card.flag.id ? 'selected="selected"' : ''}>${flag.description}</option>
+						        </c:forEach>
+						    </select>
+				        </div>
+					</div>
+								
+								
 					<div class="row">
 						<div class="form-group">
 							<label> Nome do titular (como está impresso): </label> <input
