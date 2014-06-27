@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import br.org.pucsc.carteira.entity.Bank;
 import br.org.pucsc.carteira.entity.Document;
+import br.org.pucsc.carteira.entity.Flag;
+import br.org.pucsc.carteira.service.BankService;
 import br.org.pucsc.carteira.service.DocumentService;
+import br.org.pucsc.carteira.service.FlagService;
 
 
 @Controller
@@ -23,7 +27,13 @@ public class CardRestService {
 	@Autowired
 	DocumentService documentCardService;
 	
-	@RequestMapping(value="/", method = RequestMethod.GET)
+	@Autowired
+	BankService bankService;
+	
+	@Autowired
+	FlagService flagService;
+	
+	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody List<Document> listCards() {
 
 		List<Document> cards = documentCardService.getAll(); 
@@ -49,6 +59,7 @@ public class CardRestService {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void postCard(@RequestBody Document card) {
 		
+		card.setId(null);
 		documentCardService.save(card);	
 	}
 	

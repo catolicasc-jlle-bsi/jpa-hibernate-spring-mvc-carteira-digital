@@ -22,7 +22,7 @@ public class BankRestService {
 	@Autowired
 	BankService bankService;
 	
-	@RequestMapping(value="/", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody List<Bank> listBanks() {
 
 		List<Bank> banks = bankService.getAll(); 
@@ -48,6 +48,7 @@ public class BankRestService {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void postBank(@RequestBody Bank bank) {
 		
+		bank.setId(null);
 		bankService.save(bank);	
 	}
 	

@@ -23,7 +23,7 @@ public class FlagRestService {
 	@Autowired
 	FlagService flagService;
 	
-	@RequestMapping(value="/", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody List<Flag> listFlags() {
 
 		List<Flag> flags = flagService.getAll(); 
@@ -49,6 +49,7 @@ public class FlagRestService {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void postFlag(@RequestBody Flag flag) {
 		
+		flag.setId(null);
 		flagService.save(flag);	
 	}
 	
